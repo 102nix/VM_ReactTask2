@@ -1,38 +1,38 @@
 import React, { useState } from 'react'
 
-const Counter = () => {
+const Counter = ({id, value, name, onIncrement, onDecrement, onDelete}) => {
 
-  const [count, setCount] = useState(0)
-
-  const formCount = () => {
-    return count === 0 ? 'Ноль' : count
+  const formValue= () => {
+    return value === 0 ? 'Ноль' : value
   }
 
   const getBageclasses = () => {
     let classes = 'badge m-2 bg-'
-    classes += count === 0 ? 'danger' : 'primary'
+    classes += value=== 0 ? 'danger' : 'primary'
     return classes
-  }
-
-  const handleDecrement = () => {
-    if (count === 0) return
-    setCount(prevCount => prevCount - 1)
   }
 
   return (
     <> 
-      <span className={getBageclasses()}>{formCount()}</span> 
+      <h4>{name}</h4>
+      <span className={getBageclasses()}>{formValue()}</span> 
       <button 
         className='btn btn-secondary btn-sm'
-        onClick={() => setCount(prevCount => prevCount + 1)}
+        onClick={() => onIncrement(id)}
       >
         Increment
       </button> 
       <button 
         className='btn btn-secondary btn-sm m-2'
-        onClick={handleDecrement}
+        onClick={() => onDecrement(id)}
       >
         Decrement
+      </button>
+      <button 
+        className="btn btn-danger btn-sm m-2"
+        onClick={() => onDelete(id)}
+      >
+        Delete
       </button> 
     </>
   );
